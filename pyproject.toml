@@ -1,0 +1,45 @@
+[project]
+name = "assemblyline-service-emuunpacker"
+description = "This Assemblyline service unpacks binaries by leveraging the unicorn emulation library."
+readme = "README.md"
+requires-python = ">=3.10,<4"
+license = "Apache-2.0"
+authors = [{ name = "Cybercentre Canada" }]
+dynamic = ["version"]
+dependencies = [
+    "assemblyline",
+    "assemblyline-v4-service",
+    "unipacker == 1.0.8"
+]
+
+[tool.hatch.version]
+source = "env"
+variable = "version"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "emuunpacker"
+]
+
+[tool.cruft]
+skip = ["pkglist.txt", "README.md", "emuunpacker", "tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+# Add the `line-too-long` rule to the enforced rule set. By default, Ruff omits rules that
+# overlap with the use of a formatter, like Black, but we can override this behavior by
+# explicitly adding the rule.
+extend-select = ["E501", "D", "D404", "DOC"]
+ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107"]
+preview = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

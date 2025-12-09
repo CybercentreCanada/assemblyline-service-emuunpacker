@@ -1,0 +1,24 @@
+{
+  "template": "https://github.com/CybercentreCanada/assemblyline-service-template.git",
+  "commit": "d60482c86248bd5a7dde061ea2a430ac169076cd",
+  "checkout": "d60482c86248bd5a7dde061ea2a430ac169076cd",
+  "context": {
+    "cookiecutter": {
+      "service_name": "emuunpacker",
+      "__svc_name": "emuunpacker",
+      "__repository": "assemblyline-service-emuunpacker",
+      "__pkg_name": "emuunpacker",
+      "class_name": "EmuUnpacker",
+      "short_description": "This Assemblyline service unpacks binaries by leveraging the unicorn emulation library.",
+      "short_description_fr": "",
+      "stage": "SECONDARY",
+      "category": "Dynamic Analysis",
+      "org_name_full": "CybercentreCanada",
+      "org_name_short": "cccs",
+      "license": "gpl3",
+      "_template": "https://github.com/CybercentreCanada/assemblyline-service-template.git",
+      "_commit": "d60482c86248bd5a7dde061ea2a430ac169076cd"
+    }
+  },
+  "directory": null
+}
