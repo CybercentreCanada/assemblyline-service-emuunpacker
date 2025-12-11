@@ -14,7 +14,7 @@ class EmuUnpacker(ServiceBase):
     """Assemblyline service unpacks binaries by leveraging the unicorn emulation library."""
 
     # Aim to complete processing within a safe margin of seconds before configured timeout.
-    TIMEOUT_SAFETY_MARGIN = 5
+    TIMEOUT_SAFETY_MARGIN = 10
 
     # Time allocated after emulation to produce a dump
     TIME_ALLOCATION_DUMP = 5
@@ -27,7 +27,7 @@ class EmuUnpacker(ServiceBase):
         result = Result()
         request.result = result
 
-        emulation_runtime = self.service_attributes.timeout - EmuUnpacker.SERVICE_TIMEOUT_SAFETY_MARGIN
+        emulation_runtime = self.service_attributes.timeout - EmuUnpacker.TIMEOUT_SAFETY_MARGIN
         emulation_runtime -= EmuUnpacker.TIME_ALLOCATION_DUMP
 
         if emulation_runtime < EmuUnpacker.TIME_ALLOCATION_EMULATION:
