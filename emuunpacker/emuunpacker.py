@@ -3,12 +3,11 @@
 import os
 import tempfile
 
-from assemblyline.common import forge
 from assemblyline_v4_service.common.base import ServiceBase
 from assemblyline_v4_service.common.request import ServiceRequest
 from assemblyline_v4_service.common.result import Result, ResultSection
 
-from .unpacker import UnpackException, unpack
+from .unpacker import UnpackError, unpack
 
 
 class EmuUnpacker(ServiceBase):
@@ -23,12 +22,12 @@ class EmuUnpacker(ServiceBase):
 
         try:
             unpacked_result = unpack(request.file_path, results_dir, timeout_seconds=60 * 5)
-        except UnpackException as e:
+        except UnpackError as e:
             self.log.error(f"EmuUnpacker extractor failed:\n{e}")
             return
 
-        caveat_msg = None
         display_name = os.path.basename(unpacked_result)
+        result_section = ResultSection(f"{display_name} successfully unpacked!")
 
         if not request.add_extracted(
             unpacked_result,
@@ -36,6 +35,6 @@ class EmuUnpacker(ServiceBase):
             f"Unpacked from {request.sha256}",
             safelist_interface=self.api_interface,
         ):
-            caveat_msg = "This extracted file will not been re-submitted due to being known as safe."
+            result_section.body = "This extracted file will not been re-submitted due to being known as safe."
 
-        request.result.add_section(ResultSection(f"{display_name} successfully unpacked!", body=caveat_msg))
+        request.result.add_section(result_section)

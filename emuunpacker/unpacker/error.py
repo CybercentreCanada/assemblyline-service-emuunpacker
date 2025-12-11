@@ -1,4 +1,4 @@
-class UnpackException(Exception):
+class UnpackError(Exception):
     """An unpacking error occured."""
 
     def __init__(self, description: str):
