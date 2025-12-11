@@ -16,18 +16,10 @@ category: Dynamic Analysis
 # If set to false, the service will only have access to the file metadata (e.g. Hashes, size, type, ...)
 file_required: true
 # Maximum execution time the service has before it's considered to be timed out
-timeout: 60
+timeout: 130
 
 # is the service enabled by default
 enabled: true
-
-# Service heuristic blocks: List of heuristic objects that define the different heuristics used in the service
-# heuristics:
-#   - description: This is a demo heuristic
-#     filetype: "*"
-#     heur_id: 1
-#     name: Demo
-#     score: 100
 
 # Docker configuration block which defines:
 #  - the name of the docker container that will be created
