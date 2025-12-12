@@ -20,7 +20,7 @@ docker run \
     ${PWD##*/}:pytest \
     bash -c "(cd /samples-src && make all BUILDDIR=/samples-out)"
 
-if [[ -n "$FULL_SAMPLES_LOCATION" ]]; then
+if [[ -n "${FULL_SAMPLES_LOCATION:-}" ]]; then
     MOUNT_SAMPLES="-v ${FULL_SAMPLES_LOCATION}:/opt/samples"
     ENV_SAMPLES="-e FULL_SAMPLES_LOCATION=/opt/samples"
 fi
