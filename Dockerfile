@@ -1,5 +1,20 @@
 ARG branch=latest
-FROM cccs/assemblyline-v4-service-base:$branch AS base
+
+# This image is used to prepare test samples for test cases
+FROM cccs/assemblyline-v4-service-base:$branch AS testbuilder
+
+USER root
+RUN echo "deb http://deb.debian.org/debian bookworm-backports main" >> /etc/apt/sources.list
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    upx gcc-mingw-w64-i686-win32 build-essential
+
+USER assemblyline
+
+# This is the runtime image produced for integration with AssemblyLine
+FROM cccs/assemblyline-v4-service-base:$branch
 
 # Python path to the service class from your service directory
 ENV SERVICE_PATH=emuunpacker.emuunpacker.EmuUnpacker
@@ -35,17 +50,3 @@ RUN sed -i -e "s/\$SERVICE_TAG/$version/g" service_manifest.yml
 USER assemblyline
 
 RUN pip install --no-build-isolation -e .
-
-FROM base AS testbuilder
-
-USER root
-RUN echo "deb http://deb.debian.org/debian bookworm-backports main" >> /etc/apt/sources.list
-
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    upx gcc-mingw-w64-i686-win32 build-essential
-
-USER assemblyline
-
-FROM base AS runtime

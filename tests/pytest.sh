@@ -4,9 +4,16 @@ set -euo pipefail
 docker build \
     --pull \
     --build-arg branch=stable \
-    -t ${PWD##*/}:pytest \
+    -t ${PWD##*/}:pytest-samplebuilder \
     -f ./Dockerfile \
     --target testbuilder \
+    .
+
+docker build \
+    --pull \
+    --build-arg branch=stable \
+    -t ${PWD##*/}:pytest \
+    -f ./Dockerfile \
     .
 
 # Build test samples from source files
@@ -17,13 +24,17 @@ docker run \
     --rm \
     -v $(pwd)/tests/samples-src:/samples-src:ro \
     -v $(pwd)/tests/samples:/samples-out \
-    ${PWD##*/}:pytest \
+    ${PWD##*/}:pytest-samplebuilder \
     bash -c "(cd /samples-src && make all BUILDDIR=/samples-out)"
+
+ENV_SAMPLES=""
+MOUNT_SAMPLES=""
 
 if [[ -n "${FULL_SAMPLES_LOCATION:-}" ]]; then
     MOUNT_SAMPLES="-v ${FULL_SAMPLES_LOCATION}:/opt/samples"
     ENV_SAMPLES="-e FULL_SAMPLES_LOCATION=/opt/samples"
 fi
+
 docker run \
     -t \
     --rm \
