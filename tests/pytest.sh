@@ -10,6 +10,7 @@ docker build \
     .
 
 # Build test samples from source files
+mkdir -p $(pwd)/tests/samples
 
 docker run \
     -t \
