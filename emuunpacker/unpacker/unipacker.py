@@ -10,7 +10,7 @@ from .error import UnpackError
 
 
 def unpack(sample_path: str | PathLike, result_directory: str | PathLike, *, timeout_seconds: Optional[float]) -> str:
-    dest_file = os.path.join(result_directory, f"unpacked_{os.path.basename(sample.path)}")
+    dest_file = os.path.join(result_directory, f"unpacked_{os.path.basename(sample_path)}")
 
     try:
         sample = Sample(sample_path, auto_default_unpacker=True)
