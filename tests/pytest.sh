@@ -6,7 +6,18 @@ docker build \
     --build-arg branch=stable \
     -t ${PWD##*/}:pytest \
     -f ./Dockerfile \
+    --target testbuilder \
     .
+
+# Build test samples from source files
+
+docker run \
+    -t \
+    --rm \
+    -v $(pwd)/tests/samples-src:/samples-src:ro \
+    -v $(pwd)/tests/samples:/samples-out \
+    ${PWD##*/}:pytest \
+    bash -c "(cd /samples-src && make all BUILDDIR=/samples-out)"
 
 if [[ -n "$FULL_SAMPLES_LOCATION" ]]; then
     MOUNT_SAMPLES="-v ${FULL_SAMPLES_LOCATION}:/opt/samples"
