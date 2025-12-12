@@ -10,17 +10,17 @@ from .error import UnpackError
 
 
 def unpack(sample_path: str | PathLike, result_directory: str | PathLike, *, timeout_seconds: Optional[float]) -> str:
+    dest_file = os.path.join(result_directory, f"unpacked_{os.path.basename(sample.path)}")
+
     try:
         sample = Sample(sample_path, auto_default_unpacker=True)
+        engine = UnpackerEngine(sample, dest_file)
     except Exception as e:
         raise UnpackError("Error parsing the sample as an executable binary file.") from e
-
-    dest_file = os.path.join(result_directory, f"unpacked_{os.path.basename(sample.path)}")
 
     event = threading.Event()
     client = SimpleClient(event)
 
-    engine = UnpackerEngine(sample, dest_file)
     engine.register_client(client)
 
     if timeout_seconds is not None:
