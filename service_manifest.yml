@@ -6,6 +6,8 @@ description: This Assemblyline service unpacks binaries by leveraging the unicor
 accepts: executable/windows/*
 rejects: empty|metadata/.*
 
+recursion_prevention: ["EmuUnpacker"]
+
 # At which stage the service should run (one of FILTER, EXTRACT, CORE, SECONDARY, POST, REVIEW)
 # NOTE: Stages are executed in the order defined in the list
 stage: SECONDARY
