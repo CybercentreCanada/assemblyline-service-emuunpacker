@@ -10,7 +10,7 @@
       "__pkg_name": "emuunpacker",
       "class_name": "EmuUnpacker",
       "short_description": "This Assemblyline service unpacks binaries by leveraging the unicorn emulation library.",
-      "short_description_fr": "",
+      "short_description_fr": "Ce service d'Assemblyline décompresse les fichiers binaires en utilisant la librarie d'émulation Unicorn.",
       "stage": "SECONDARY",
       "category": "Dynamic Analysis",
       "org_name_full": "CybercentreCanada",
