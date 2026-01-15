@@ -51,6 +51,6 @@ class EmuUnpacker(ServiceBase):
             f"Unpacked from {request.sha256}",
             safelist_interface=self.api_interface,
         ):
-            result_section.body = "This extracted file will not been re-submitted due to being known as safe."
+            result_section.body = "This extracted file will not be re-submitted due to being known as safe."
 
         request.result.add_section(result_section)
