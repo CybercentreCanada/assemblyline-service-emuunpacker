@@ -1,6 +1,6 @@
 # Test file origin
 
-The files in this sample directory have been sourced in the following ways:
+The files in the sample directory have been sourced in the following ways:
 
 | **Hash**                                                         | **Description**                                                                                                                 | **Source**     |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------- |
