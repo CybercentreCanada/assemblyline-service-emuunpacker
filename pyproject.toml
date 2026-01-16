@@ -12,6 +12,9 @@ dependencies = [
     "unipacker == 1.0.8"
 ]
 
+[tool.setuptools.packages.find]
+where = ["emuunpacker"]
+
 [tool.hatch.version]
 source = "env"
 variable = "version"
