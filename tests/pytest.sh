@@ -1,13 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-docker build \
-    --pull \
-    --build-arg branch=stable \
-    -t ${PWD##*/}:pytest-samplebuilder \
-    -f ./Dockerfile \
-    --target testbuilder \
-    .
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 docker build \
     --pull \
@@ -15,17 +9,6 @@ docker build \
     -t ${PWD##*/}:pytest \
     -f ./Dockerfile \
     .
-
-# Build test samples from source files
-mkdir -p $(pwd)/tests/samples
-
-docker run \
-    -t \
-    --rm \
-    -v $(pwd)/tests/samples-src:/samples-src:ro \
-    -v $(pwd)/tests/samples:/samples-out \
-    ${PWD##*/}:pytest-samplebuilder \
-    bash -c "(cd /samples-src && make all BUILDDIR=/samples-out)"
 
 ENV_SAMPLES=""
 MOUNT_SAMPLES=""
@@ -41,7 +24,7 @@ docker run \
     -e FULL_SELF_LOCATION=/opt/al_service \
     $ENV_SAMPLES \
     -v /usr/share/ca-certificates/mozilla:/usr/share/ca-certificates/mozilla \
-    -v $(pwd)/tests/:/opt/al_service/tests/ \
+    -v $SCRIPT_DIR:/opt/al_service/tests/ \
     $MOUNT_SAMPLES \
     ${PWD##*/}:pytest \
     bash -c "pip install -U -r tests/requirements.txt; pytest -p no:cacheprovider --durations=10 -rsx -vv -x"
