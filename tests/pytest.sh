@@ -3,9 +3,6 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 set -euo pipefail
 
-# Setup test subject binaries.
-$SCRIPT_DIR/extra-setup.sh
-
 docker build \
     --pull \
     --build-arg branch=stable \
