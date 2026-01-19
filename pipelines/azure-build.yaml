@@ -31,6 +31,6 @@ extends:
   parameters:
     is_public: "true"
     samples_repo: unittest-samples
+    short_description: "This Assemblyline service unpacks binaries by leveraging the unicorn emulation library."
     labels:
       classification: "UNCLASSIFIED"
-    
