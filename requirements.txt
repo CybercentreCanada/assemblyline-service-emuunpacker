@@ -1,2 +1,3 @@
 assemblyline
 assemblyline-v4-service
+unipacker==1.0.8
