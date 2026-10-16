@@ -34,5 +34,3 @@ RUN sed -i -e "s/\$SERVICE_TAG/$version/g" service_manifest.yml
 
 # Switch to assemblyline user
 USER assemblyline
-
-RUN pip install --no-build-isolation -e .
