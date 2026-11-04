@@ -1,2 +1,4 @@
 assemblyline
 assemblyline-v4-service
+unipacker==1.0.8
+setuptools<82.0.0
